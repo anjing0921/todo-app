@@ -23,7 +23,17 @@ module.exports.updateToDo = async (req, res) => {
   
   ToDoModel
     .findByIdAndUpdate(_id, {text})
-    .then(()=>{ res.send("updated")
+    .then(()=>res.send("updated"))
     .catch((err)=> console.log(err))
-    })
+}
+
+
+module.exports.deleteToDo = async (req, res) => {
+  
+  const {_id} = req.body
+  
+  ToDoModel
+    .findByIdAndDelete(_id)
+    .then(()=> res.send("DELETED"))
+    .catch((err)=> console.log(err))
 }
