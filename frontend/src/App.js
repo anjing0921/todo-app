@@ -14,9 +14,9 @@ function App() {
   }, [])
 
   const updateMode = (_id, text) => {
-    // setIsUpdating(true)
-    // setText(text)
-    // setToDoId(_id)
+    setIsUpdating(true)
+    setText(text)
+    setToDoId(_id)
     console.log('update2')
   }
 
@@ -43,7 +43,7 @@ function App() {
           {toDo.map((item) => <ToDo 
             key={item._id} 
             text={item.text}
-            updateMode = {updateMode}
+            updateMode = {()=> updateMode(item._id, item.text)}
             deleteToDo = {() => deleteToDo(item._id, setToDo)}
             />
             )}
