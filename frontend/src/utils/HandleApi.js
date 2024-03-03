@@ -28,7 +28,6 @@ const updateToDo = (toDoId, text, setToDo, setText, setIsUpdating) => {
     .put(`${baseUrl}/update`, {_id: toDoId, text})
     .then((data)=>{
       setText("")
-      console.log('update1')
       setIsUpdating(false)
       getAllToDo(setToDo)
     })

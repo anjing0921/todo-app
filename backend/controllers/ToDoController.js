@@ -31,9 +31,10 @@ module.exports.updateToDo = async (req, res) => {
 module.exports.deleteToDo = async (req, res) => {
   
   const {_id} = req.body
+  console.log('id ---> ', _id);
   
   ToDoModel
     .findByIdAndDelete(_id)
-    .then(()=> res.send("DELETED"))
+    .then(()=> res.set(201).send("DELETED"))
     .catch((err)=> console.log(err))
 }

@@ -17,7 +17,6 @@ function App() {
     setIsUpdating(true)
     setText(text)
     setToDoId(_id)
-    console.log('update2')
   }
 
 
