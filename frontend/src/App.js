@@ -21,8 +21,6 @@ function App() {
     setToDoId(_id)
   }
   const handleChange = (e) =>{
-    console.log('handle change')
-    console.log(e.target.value)
     e.preventDefault();
     const validationErrors = {}
     setDisabled(false)
