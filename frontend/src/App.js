@@ -8,6 +8,8 @@ function App() {
   const [text, setText] = useState("")
   const [isUpdating, setIsUpdating] = useState(false)
   const [toDoId, setToDoId] = useState("")
+  const [errors, setErrors] = useState({})
+  const [isDisabled, setDisabled] = useState(false);
 
   useEffect(() => {
     getAllToDo(setToDo)
@@ -18,8 +20,24 @@ function App() {
     setText(text)
     setToDoId(_id)
   }
+  const handleChange = (e) =>{
+    console.log('handle change')
+    console.log(e.target.value)
+    e.preventDefault();
+    const validationErrors = {}
+    setDisabled(false)
+    if(!e.target.value.trim()){
+        validationErrors.todo = "Input can not be empty"
+        setDisabled(true)
+        }
+    setText(e.target.value)
+    setErrors(validationErrors)
+  }
 
+  const handleSubmit = () =>{
 
+    addToDo(text, setText, setToDo)
+  }
   return (
     <div className="App">
       <div className="container">
@@ -29,14 +47,20 @@ function App() {
             type="text" 
             placeholder="ADD TO DO LIST"
             value={text}
-            onChange={(e)=> setText(e.target.value)}
+            id="todo"
+            onChange={handleChange}
           />
-          <div className="add" 
+            {errors.todo && <span className="error">{errors.todo}</span>} 
+            {isDisabled ?
+            <button className="hide_button" disabled={isDisabled}>Add</button> 
+            :<button 
+            type="button"
+            className="add" 
             onClick={isUpdating ? 
               () => updateToDo(toDoId, text, setToDo, setText, setIsUpdating) 
-              : () => addToDo(text, setText, setToDo)}>
+              : ()=>handleSubmit()}>
             {isUpdating ? "Update" : "Add"}
-          </div>
+          </button>}
         </div>
         <div className="list">
           {toDo.map((item) => <ToDo 
