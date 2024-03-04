@@ -68,4 +68,15 @@ input {
   font-size: 20px;
 }
 
+.error {
+  color: red;
+}
+
+.hide_button {
+  background-color: gray;
+  color: aliceblue;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
