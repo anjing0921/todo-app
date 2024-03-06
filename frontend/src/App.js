@@ -12,6 +12,7 @@ function App() {
   const [toDoId, setToDoId] = useState("")
   const [errors, setErrors] = useState({})
   const [isDisabled, setDisabled] = useState(false);
+  // const [isSame, setSame] = useState(false);
 
   useEffect(() => {
     getAllToDo(setToDo)
@@ -30,15 +31,24 @@ function App() {
         validationErrors.todo = "Input can not be empty"
         setDisabled(true)
         }
+    // let newText = e.target.value
+    // let n = capitalized(newText)
     setText(e.target.value)
+    console.log(toDo)
+    if (toDo.findIndex((p) => p.text === e.target.value.trim()) !== -1) {
+      // alert(`${e.target.value} is already in the phone book `);
+      validationErrors.isSame = `${e.target.value} is already in the list `
+      // setSame(true)
+      setDisabled(true)
+    }
     setErrors(validationErrors)
   }
+
   const handleClickAway = () =>{
     getAllToDo(setToDo)
     setErrors({})
   }
   const handleSubmit = () =>{
-
     addToDo(text, setText, setToDo)
   }
   return (
@@ -54,7 +64,8 @@ function App() {
               id="todo"
               onChange={handleChange}
             />
-              {errors.todo && <span className="error">{errors.todo}</span>} 
+              {errors.todo && <span className="error">{errors.todo}</span>}   
+              {errors.isSame && <span className="error">{errors.isSame}</span>} 
               {isDisabled ?
               <button className="hide_button" disabled={isDisabled}>Add</button> 
               :<button 
