@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import ToDo from "./components/ToDo";
 import { addToDo, getAllToDo , updateToDo, deleteToDo} from "./utils/HandleApi";
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
+
 
 function App() {
 
@@ -31,7 +33,10 @@ function App() {
     setText(e.target.value)
     setErrors(validationErrors)
   }
-
+  const handleClickAway = () =>{
+    getAllToDo(setToDo)
+    setErrors({})
+  }
   const handleSubmit = () =>{
 
     addToDo(text, setText, setToDo)
@@ -40,26 +45,28 @@ function App() {
     <div className="App">
       <div className="container">
         <h1>TO DO APP</h1>
-        <div className="top">
-          <input 
-            type="text" 
-            placeholder="ADD TO DO LIST"
-            value={text}
-            id="todo"
-            onChange={handleChange}
-          />
-            {errors.todo && <span className="error">{errors.todo}</span>} 
-            {isDisabled ?
-            <button className="hide_button" disabled={isDisabled}>Add</button> 
-            :<button 
-            type="button"
-            className="add" 
-            onClick={isUpdating ? 
-              () => updateToDo(toDoId, text, setToDo, setText, setIsUpdating) 
-              : ()=>handleSubmit()}>
-            {isUpdating ? "Update" : "Add"}
-          </button>}
-        </div>
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <div className="top">
+            <input 
+              type="text" 
+              placeholder="ADD TO DO LIST"
+              value={text}
+              id="todo"
+              onChange={handleChange}
+            />
+              {errors.todo && <span className="error">{errors.todo}</span>} 
+              {isDisabled ?
+              <button className="hide_button" disabled={isDisabled}>Add</button> 
+              :<button 
+              type="button"
+              className="add" 
+              onClick={isUpdating ? 
+                () => updateToDo(toDoId, text, setToDo, setText, setIsUpdating) 
+                : ()=>handleSubmit()}>
+              {isUpdating ? "Update" : "Add"}
+            </button>}
+          </div>
+        </ClickAwayListener>
         <div className="list">
           {toDo.map((item) => <ToDo 
             key={item._id} 
