@@ -12,7 +12,6 @@ function App() {
   const [toDoId, setToDoId] = useState("")
   const [errors, setErrors] = useState({})
   const [isDisabled, setDisabled] = useState(false);
-  // const [isSame, setSame] = useState(false);
 
   useEffect(() => {
     getAllToDo(setToDo)
@@ -31,14 +30,10 @@ function App() {
         validationErrors.todo = "Input can not be empty"
         setDisabled(true)
         }
-    // let newText = e.target.value
-    // let n = capitalized(newText)
     setText(e.target.value)
-    console.log(toDo)
+    // console.log(toDo)
     if (toDo.findIndex((p) => p.text === e.target.value.trim()) !== -1) {
-      // alert(`${e.target.value} is already in the phone book `);
       validationErrors.isSame = `${e.target.value} is already in the list `
-      // setSame(true)
       setDisabled(true)
     }
     setErrors(validationErrors)
@@ -47,6 +42,7 @@ function App() {
   const handleClickAway = () =>{
     getAllToDo(setToDo)
     setErrors({})
+    setDisabled(false)
   }
   const handleSubmit = () =>{
     addToDo(text, setText, setToDo)
